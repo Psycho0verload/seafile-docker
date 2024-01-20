@@ -36,6 +36,14 @@ else
     /usr/bin/crontab /var/spool/cron/crontabs/root
 fi
 
+# start customscripts
+if [ -d /etc/customscripts ]; then
+    for f in /etc/customscripts/*.sh; do
+        if [ -r "${f}" ]; then
+            . "${f}"
+        fi
+    done
+fi
 
 # start cluster server
 if [[ $CLUSTER_SERVER == "true" && $SEAFILE_SERVER == "seafile-pro-server" ]] ;then
